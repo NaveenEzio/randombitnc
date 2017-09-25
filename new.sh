@@ -1,6 +1,12 @@
 #!/bin/bash
-nc localhost 7006 >output.bin
-
+declare -a arr[1023] 
+read -p "How many bits to generate " n
+for((i=0;i<$n;i++))
+do
+arr[$i]=$(($RANDOM%2)) 
+done
+echo ${arr[*]} >>$n.txt
+cat $n.txt | tr -d '\n' | tr -d ' ' >> output.bin
 fold -w 8 output.bin >>split.bin
 v=`cat split.bin`
 a=0
